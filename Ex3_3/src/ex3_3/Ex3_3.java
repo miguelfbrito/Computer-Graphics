@@ -46,96 +46,95 @@ public class Ex3_3 extends JApplet {
 
 class MyPanel2D extends JPanel implements MouseListener {
 
-	int x,y;
+	int x, y;
 	Graphics2D g2;
-	
+
 	public MyPanel2D() {
 		setPreferredSize(new Dimension(400, 400));
 		setBackground(Color.WHITE);
 		addMouseListener(this);
-		
+
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g2 = (Graphics2D) g;
-	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+		g2.scale(1.35, 1.35);
+		g2.translate(-35, -35);
 		
 		Font font = new Font("Serif", Font.BOLD, 14);
 		g2.setFont(font);
 		g2.setColor(Color.black);
-		g2.drawString("x:" + x + " y:" +y, 320, 375);
-		
-		g2.drawOval(100, 175, 16, 16);
-		g2.setColor(Color.yellow);
-		g2.fillOval(101, 176, 15, 15);
-		
+		g2.drawString("x:" + x + " y:" + y, 320, 375);
+
 		GeneralPath petala = new GeneralPath();
-		AffineTransform blankTransform = new AffineTransform();
-		blankTransform = g2.getTransform();
-		
-		
-		
+
 		GradientPaint gp = new GradientPaint(65, 25, Color.BLUE, 155, 250, Color.RED);
-		
-		//circ transparencia
 
-		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .1f);
+
+		AlphaComposite ac = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .65f);
 		AlphaComposite acDefault = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f);
-	
-		g2.setColor(Color.CYAN);
+
 		
+		petala.moveTo(107, 175);
+		petala.quadTo(92, 130, 109, 120);
+		petala.quadTo(120, 130, 111, 175);
+		petala.closePath();
+
 		g2.setComposite(ac);
-		g2.fillOval(45, 120, 127, 127);
-		g2.fillOval(240, 125, 116, 116);
-		g2.setComposite(acDefault);
+		for (int i = 0; i < 16; i++) {
+			g2.rotate(Math.PI / 8, 108, 183.5);
 
-		g2.setPaint(gp);
-	    for(int i = 0; i<14; i++) {
-			g2.rotate(Math.PI/7, 108, 183.5);
-			petala.moveTo(107, 175);
-			
-			petala.quadTo(100, 130, 109, 120); 
-			petala.quadTo(120, 130, 111, 175); 
-			petala.closePath();
-			
+			g2.setPaint(gp);
 			g2.fill(petala);
+			g2.setColor(Color.black);
+			g2.draw(petala);
 		}
-
-	    petala.reset();
-		g2.setTransform(blankTransform);
 		
+		g2.setComposite(acDefault);
+		petala.reset();
+
+		g2.setColor(Color.yellow);
+		g2.fillOval(99, 175, 18, 18);
+		g2.setColor(Color.black);
+		g2.drawOval(99, 175, 18, 18);
 
 		// FLOR 2
 		// --------------------------
 
 		gp = new GradientPaint(150, 150, Color.green, 350, 350, Color.red);
 
-		g2.setPaint(gp);
-		
-		for(int i = 0; i<12; i++) {
-			g2.rotate(Math.PI/6, 298, 183.5);
-			petala.moveTo(297, 175);
-			petala.lineTo(293, 150);
-			petala.lineTo(299.5, 125);
-			
-			petala.lineTo(306, 150);
-			petala.lineTo(302, 175);
-			
-			petala.closePath();
-			g2.fill(petala);
-		}
-		
-		g2.setColor(Color.black);
-		g2.drawOval(289, 175, 17, 17);
-		g2.setColor(Color.yellow);
-		g2.fillOval(290, 176, 16, 16);
-		
+		petala.moveTo(297, 175);
+		petala.lineTo(293, 150);
+		petala.lineTo(299.5, 125);
+		petala.lineTo(306, 150);
+		petala.lineTo(302, 175);
+		petala.closePath();
 
+		g2.translate(-35, 0);
 		
+		g2.setColor(Color.YELLOW);
+		g2.fillRect(287, 175, 20, 20);
+
+		int green = 155;
+		for (int i = 0; i < 15; i++) {
+			Color c = new Color(0, green, 0);
+
+			green += 4;
+			g2.setColor(c);
+
+			g2.rotate(Math.PI / 7, 298, 183.5);
+
+			g2.fill(petala);
+
+			g2.setColor(Color.BLACK);
+			g2.draw(petala);
+		}
+
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		x = e.getX();
@@ -166,5 +165,5 @@ class MyPanel2D extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 }
