@@ -46,7 +46,7 @@ public class Ex3_1 extends JApplet {
 
 }
 
-class MyPanel2D extends JPanel implements MouseListener {
+class MyPanel2D extends JPanel{
 
 	int x = 100, y = 100;
 	Graphics2D g2;
@@ -70,7 +70,6 @@ class MyPanel2D extends JPanel implements MouseListener {
 	public MyPanel2D() {
 		setPreferredSize(new Dimension(500, 500));
 		setBackground(Color.WHITE);
-		addMouseListener(this);
 
 		randomVS(12);
 	}
@@ -82,7 +81,6 @@ class MyPanel2D extends JPanel implements MouseListener {
 		Font font = new Font("Serif", Font.BOLD, 14);
 		g2.setFont(font);
 		g2.setColor(Color.black);
-	//	g2.drawString("x:" + x + " y:" + y, 415, 480);
 
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -105,7 +103,6 @@ class MyPanel2D extends JPanel implements MouseListener {
 		int lG = l - marginX;
 		int aG = a - marginY;
 
-		
 		
 		// Painel do gráfico (inclui pattern)
 		Rectangle r = new Rectangle(xG+lG, yG+aG, (int)(lG*1.4), (int)(aG*1.1));
@@ -321,41 +318,5 @@ class MyPanel2D extends JPanel implements MouseListener {
 
 	long pastMillis = 1;
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		x = e.getX();
-		y = e.getY();
-
-		if(e.getClickCount() == 2) {
-		
-			randomVS(12);
-		}
-//		pastMillis = System.currentTimeMillis();
-		repaint();
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

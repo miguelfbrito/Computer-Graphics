@@ -12,6 +12,8 @@ import java.awt.TextComponent;
 import java.awt.event.MouseListener;
 import java.awt.font.FontRenderContext;
 import java.awt.font.GlyphVector;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 
 import javax.swing.JApplet;
 import javax.swing.JFrame;
@@ -65,24 +67,39 @@ class MyPanel2D extends JPanel {
 
 		g2.setFont(f);
 		g2.setColor(Color.ORANGE);
-		g2.drawString("M", 126, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
-		g2.drawString("B", 212, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
+	//	g2.drawString("M", 126, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
+//		g2.drawString("B", 155, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
 
 		FontRenderContext frc = g2.getFontRenderContext();
 		GlyphVector gv = f.createGlyphVector(frc, "M");
-		Shape glyph = gv.getOutline(128, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
+		Shape glyph = gv.getOutline(138, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
 
 		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke(1.25f));
+		g2.setStroke(new BasicStroke(2f));
 		g2.draw(glyph);
 
+		Area a = new Area(glyph);
+
 		gv = f.createGlyphVector(frc, "B");
-		glyph = gv.getOutline(216, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
-		//g2.setColor(Color.white);
-	   g2.draw(glyph);
+		Shape glyph2 = gv.getOutline(196, (int) (62 + 275 / 2) + g2.getFontMetrics().getHeight() / 4);
+
+		Area a2 = new Area(glyph2);
+		a.add(a2);
+		g2.setColor(Color.ORANGE);
+	
+		g2.fill(a);
+		
+		AffineTransform defaultTransform = new AffineTransform();
+		defaultTransform = g2.getTransform();
+		
+		g2.setColor(Color.black);
+		g2.translate(3,0);
+		g2.draw(a);
+		
+		g2.setTransform(defaultTransform);
 		
 		g2.setStroke(new BasicStroke(1f));
 		g2.setColor(Color.WHITE);
-		g2.fillRoundRect(130, 235, 153, 9, 7, 7);
+		g2.fillRoundRect(140, 235, 130, 9, 7, 7);
 	}
 }
